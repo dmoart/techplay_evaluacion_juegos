@@ -1,1 +1,1 @@
-# techplay_evaluaci-n_juegos
+# techplay_evaluacion_juegos
