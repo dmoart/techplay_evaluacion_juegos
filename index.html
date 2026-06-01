@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rúbrica TECHPLAY - 1º EMS</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #334155;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --bg-start: #eff6ff;
+            --bg-end: #e0e7ff;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --header-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+            --excelente-bg: #dcfce7;
+            --excelente-border: #22c55e;
+            --bueno-bg: #e0f2fe;
+            --bueno-border: #3b82f6;
+            --basico-bg: #fef9c3;
+            --basico-border: #eab308;
+            --proceso-bg: #fee2e2;
+            --proceso-border: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary); /* Color liso respetado */
+            color: white;
+            padding: 45px 30px;
+            border-radius: var(--radius);
+            margin-bottom: 35px;
+            box-shadow: var(--header-shadow); /* Sombreado gris respetado */
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            font-weight: 800;
+        }
+
+        header h2 {
+            font-size: 19px;
+            font-weight: 400;
+            color: #cbd5e1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 35px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+            border-top: 6px solid var(--accent); /* Borde dinámico que cambiará por tarjeta */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Colores dinámicos para el borde superior de cada tarjeta */
+        .card:nth-child(2) { border-top-color: #3b82f6; } /* Azul */
+        .card:nth-child(3) { border-top-color: #8b5cf6; } /* Violeta */
+        .card:nth-child(4) { border-top-color: #f59e0b; } /* Ámbar */
+        .card:nth-child(5) { border-top-color: #10b981; } /* Verde Esmeralda */
+        .card:nth-child(6) { border-top-color: #ec4899; } /* Rosa */
+        .card:nth-child(7) { border-top-color: #06b6d4; } /* Cian */
+        .card:nth-child(8) { border-top-color: #6366f1; } /* Índigo */
+        .card:nth-child(9) { border-top-color: #f43f5e; } /* Rojo Rosa */
+        .card:nth-child(10) { border-top-color: #84cc16; } /* Lima */
+        .card:nth-child(11) { border-top-color: #a855f7; } /* Púrpura */
+
+        h3 {
+            color: var(--text);
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #ec4899);
+            border-radius: 2px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-light);
+            font-size: 15px;
+        }
+
+        .help-text {
+            display: block;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        input[type="text"], input[type="date"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Resplandor colorido al escribir */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background-color: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14.5px;
+            font-weight: 500;
+            color: var(--primary-light);
+        }
+
+        .checkbox-label:hover {
+            background-color: #e0e7ff;
+            border-color: #c7d2fe;
+            color: #3730a3;
+        }
+
+        .checkbox-label input[type="checkbox"], .radio-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .info-box {
+            background: linear-gradient(to right, #eff6ff, #ffffff);
+            border-left: 5px solid var(--accent);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .info-box p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #1e3a8a;
+        }
+        
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box.highlight {
+            background: linear-gradient(to right, #fffbeb, #ffffff);
+            border-left-color: #f59e0b;
+        }
+        
+        .info-box.highlight p {
+            color: #92400e;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: linear-gradient(135deg, #4f46e5, #3b82f6); /* Encabezado de tabla colorido */
+            color: white;
+            font-weight: 600;
+            font-size: 14.5px;
+            text-transform: uppercase;
+            text-align: center;
+            width: 20%;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child {
+            width: 20%;
+            text-align: left;
+        }
+
+        .criterion-title {
+            font-weight: bold;
+            font-size: 15.5px;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .rubric-cell {
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .rubric-cell:hover {
+            background-color: #f8fafc;
+        }
+
+        .rubric-cell label {
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: normal;
+            margin: 0;
+            color: inherit;
+        }
+
+        .rubric-cell input[type="radio"] {
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Celdas Activas */
+        .cell-excelente.active { background-color: var(--excelente-bg); box-shadow: inset 0 0 0 2px var(--excelente-border); color: #166534; font-weight: 500;}
+        .cell-bueno.active { background-color: var(--bueno-bg); box-shadow: inset 0 0 0 2px var(--bueno-border); color: #1e40af; font-weight: 500;}
+        .cell-basico.active { background-color: var(--basico-bg); box-shadow: inset 0 0 0 2px var(--basico-border); color: #854d0e; font-weight: 500;}
+        .cell-proceso.active { background-color: var(--proceso-bg); box-shadow: inset 0 0 0 2px var(--proceso-border); color: #991b1b; font-weight: 500;}
+
+        .valuation-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recommend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .radio-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-align: center;
+            color: var(--primary-light);
+        }
+
+        .radio-card input {
+            margin-bottom: 12px;
+            transform: scale(1.3);
+        }
+
+        .radio-card:hover { 
+            background-color: #e0e7ff; 
+            border-color: #c7d2fe;
+            transform: translateY(-2px);
+        }
+        
+        .radio-card.val-excelente.active { background-color: var(--excelente-bg); border-color: var(--excelente-border); color: #166534; }
+        .radio-card.val-bueno.active { background-color: var(--bueno-bg); border-color: var(--bueno-border); color: #1e40af; }
+        .radio-card.val-basico.active { background-color: var(--basico-bg); border-color: var(--basico-border); color: #854d0e; }
+        .radio-card.val-proceso.active { background-color: var(--proceso-bg); border-color: var(--proceso-border); color: #991b1b; }
+        
+        .radio-card.rec-card.active { background: linear-gradient(135deg, #3b82f6, #6366f1); border-color: transparent; color: white; }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        button {
+            padding: 16px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s, opacity 0.2s;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:active { transform: scale(0.97); }
+        button:hover { opacity: 0.9; box-shadow: 0 6px 8px rgba(0,0,0,0.15); }
+
+        .btn-clear { background: linear-gradient(135deg, #64748b, #475569); }
+        .btn-print { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .valuation-grid { grid-template-columns: 1fr; }
+            .button-group { flex-direction: column; }
+            button { width: 100%; justify-content: center; }
+        }
+
+        @media print {
+            body { background: white !important; padding: 0; color: black; }
+            .card { 
+                box-shadow: none !important; 
+                border: 1px solid #cbd5e1 !important; 
+                border-top-width: 3px !important;
+                margin-bottom: 20px; 
+                page-break-inside: avoid; 
+                padding: 20px !important;
+            }
+            .button-group, .help-text { display: none; }
+            textarea { min-height: 60px; border: 1px solid #cbd5e1 !important; }
+            input[type="text"], input[type="date"], select { border: 1px solid #cbd5e1 !important; }
+            header { background: transparent !important; color: black !important; box-shadow: none !important; padding: 0 0 20px 0; border-bottom: 3px solid #0f172a; }
+            header h2 { color: #333 !important; }
+            h3::after { background: #0f172a !important; height: 2px; }
+            .table-container { border: none; overflow: visible; box-shadow: none; }
+            table { min-width: 100%; page-break-inside: auto; border: 1px solid #cbd5e1; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            th { background: #e2e8f0 !important; color: black !important; border: 1px solid #cbd5e1; }
+            td { border: 1px solid #cbd5e1; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form id="techplay-form">
+        <header>
+            <h1>Proyecto TECHPLAY – 1º EMS</h1>
+            <h2>Rúbrica para evaluar juegos</h2>
+        </header>
+
+        <div class="card">
+            <h3>Datos iniciales</h3>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Equipo evaluador</label>
+                    <input type="text" id="equipo" placeholder="Nombre del equipo">
+                </div>
+                <div class="form-group">
+                    <label>Grupo</label>
+                    <select id="grupo">
+                        <option value="" disabled selected>Selecciona un grupo...</option>
+                        <option value="1ºEMS1">1ºEMS1</option>
+                        <option value="1ºEMS2">1ºEMS2</option>
+                        <option value="1ºEMS3">1ºEMS3</option>
+                        <option value="1ºEMS4">1ºEMS4</option>
+                        <option value="1ºEMS5">1ºEMS5</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label>Integrantes</label>
+                    <textarea id="integrantes" style="min-height: 80px;" placeholder="Nombres y apellidos"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Fecha</label>
+                    <input type="date" id="fecha">
+                </div>
+                <div class="form-group">
+                    <label>Nombre del juego evaluado</label>
+                    <input type="text" id="juego" placeholder="Nombre del juego">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Tipo de juego</h3>
+            <div class="checkbox-grid">
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de mesa"> Juego de mesa</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de cartas"> Juego de cartas</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de dados"> Juego de dados</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de strategy"> Juego de estrategia</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego cooperativo"> Juego cooperativo</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Videojuego"> Videojuego</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de construcción"> Juego de construcción</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de preguntas"> Juego de preguntas</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de roles"> Juego de roles</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de memoria"> Juego de memoria</label>
+                <label class="checkbox-label"><input type="checkbox" name="tipo" value="Juego de lógica"> Juego de lógica</label>
+                <label class="checkbox-label"><input type="checkbox" id="tipo-otro-cb" value="Otro"> Otro</label>
+            </div>
+            <div class="form-group hidden" id="tipo-otro-container">
+                <input type="text" id="tipo-otro-texto" placeholder="Especifique qué otro tipo de juego...">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Cantidad de jugadores</label>
+                    <input type="text" id="cantidad-jugadores" placeholder="Ej. 2 a 4 jugadores">
+                </div>
+                <div class="form-group">
+                    <label>Duración aproximada de una partida</label>
+                    <input type="text" id="duracion" placeholder="Ej. 30 minutos">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Propósito de la actividad</h3>
+            <div class="info-box highlight">
+                <p>Esta actividad forma parte del proyecto <strong>TECHPLAY</strong>, en el que los equipos diseñarán y desarrollarán sus propios juegos, vinculados a ejes como salud, educación, inclusión, sociedad, tecnología, convivencia y comunicación.</p>
+                <p>El objetivo de esta instancia no es solamente jugar, sino <strong>observar, analizar y evaluar</strong> juegos existentes para comprender cómo están diseñados. A partir de este análisis, cada equipo podrá tomar ideas, mecánicas, dinámicas y recursos que luego podrán servir para crear su propio juego.</p>
+                <p>Por eso, al evaluar un juego no alcanza con decir si “nos gustó” o “no nos gustó”. Es necesario observar su objetivo, sus reglas, las acciones que realizan los jugadores, la interacción entre participantes, el diseño visual, la dificultad, la originalidad, las emociones que genera y las posibles mejoras.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Registro de observación del juego</h3>
+            
+            <div class="form-group">
+                <label>¿Cuál es el objetivo principal del juego?</label>
+                <span class="help-text">Ayuda: ¿Qué hay que lograr para ganar, avanzar o completar la partida?</span>
+                <textarea id="obs-objetivo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué tienen que hacer los jugadores durante la partida?</label>
+                <span class="help-text">Ayuda: Describan las acciones principales que realizan los jugadores.</span>
+                <textarea id="obs-acciones"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Cuáles son las reglas más importantes?</label>
+                <span class="help-text">Ayuda: Escriban las reglas necesarias para que otra persona pueda entender cómo se juega.</span>
+                <textarea id="obs-reglas"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué mecánicas aparecen en el juego?</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Avanzar por casilleros"> Avanzar por casilleros</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Tirar dados"> Tirar dados</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Usar cartas"> Usar cartas</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Responder preguntas"> Responder preguntas</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Resolver desafíos"> Resolver desafíos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Construir algo"> Construir algo</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Administrar recursos"> Administrar recursos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Comprar o intercambiar elementos"> Comprar o intercambiar</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Cooperar con otros jugadores"> Cooperar con otros</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Competir contra otros jugadores"> Competir contra otros</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Superar niveles"> Superar niveles</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Tomar decisiones estratégicas"> Decisiones estratégicas</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Ganar o perder puntos"> Ganar puntos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Desbloquear elementos"> Desbloquear elementos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Cumplir misiones"> Cumplir misiones</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Evitar obstáculos"> Evitar obstáculos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Memorizar información"> Memorizar información</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Crear estrategias"> Crear estrategias</label>
+                    <label class="checkbox-label"><input type="checkbox" name="mecanica" value="Resolver problemas"> Resolver problemas</label>
+                    <label class="checkbox-label"><input type="checkbox" id="mecanica-otro-cb" value="Otro"> Otro</label>
+                </div>
+                <div class="form-group hidden" id="mecanica-otro-container">
+                    <input type="text" id="mecanica-otro-texto" placeholder="Especifique qué otra mecánica...">
+                </div>
+                <label style="margin-top: 15px;">Expliquen brevemente cómo funcionan esas mecánicas en el juego.</label>
+                <textarea id="obs-mecanicas-exp"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Cómo interactúan los jugadores?</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Compiten entre sí"> Compiten entre sí</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Cooperan para lograr un objetivo común"> Cooperan (objetivo común)</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Forman equipos"> Forman equipos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Se bloquean o dificultan el avance"> Se bloquean / dificultan</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Intercambian información o recursos"> Intercambian info/recursos</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Toman decisiones en conjunto"> Decisiones en conjunto</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Negocian o acuerdan estrategias"> Negocian estrategias</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Se ayudan entre sí"> Se ayudan entre sí</label>
+                    <label class="checkbox-label"><input type="checkbox" name="interaccion" value="Casi no interactúan"> Casi no interactúan</label>
+                    <label class="checkbox-label"><input type="checkbox" id="interaccion-otro-cb" value="Otro"> Otro</label>
+                </div>
+                <div class="form-group hidden" id="interaccion-otro-container">
+                    <input type="text" id="interaccion-otro-texto" placeholder="Especifique qué otra interacción...">
+                </div>
+                <label style="margin-top: 15px;">Expliquen cómo se da esa interacción durante la partida.</label>
+                <textarea id="obs-interaccion-exp"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué elementos de diseño se destacan?</label>
+                <span class="help-text">Ayuda: Observen el tablero, cartas, fichas, dados, personajes, colores, símbolos, interfaz, materiales o componentes del juego.</span>
+                <textarea id="obs-diseno"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿El juego es claro y fácil de entender?</label>
+                <span class="help-text">Ayuda: Expliquen si las instrucciones, símbolos, textos, cartas, tablero o interfaz ayudan a comprender el juego.</span>
+                <textarea id="obs-claridad"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué fue lo más interesante del juego?</label>
+                <span class="help-text">Ayuda: Puede ser una regla, una mecánica, una forma de competir, una strategy, el diseño visual, la temática o la experiencia general.</span>
+                <textarea id="obs-interesante"></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Análisis psicológico de la experiencia de juego</h3>
+            <div class="info-box">
+                <p>Además de analizar las reglas, mecánicas y diseño visual, también es importante observar qué provoca el juego en quienes participan: si mantiene la atención, si motiva a seguir jugando, si genera frustración, si permite tomar decisiones importantes y qué emociones aparecen durante la partida.</p>
+                <p>Esta mirada ayuda a diseñar juegos más interesantes, equilibrados y significativos.</p>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué emociones genera el juego mientras se juega?</label>
+                <span class="help-text">Ayuda: Por ejemplo: entusiasmo, tensión, alegría, frustración, ansiedad, sorpresa, aburrimiento, curiosidad o ganas de seguir intentando.</span>
+                <textarea id="psi-emociones"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿El juego mantiene la atención de los jugadores?</label>
+                <span class="help-text">Ayuda: Expliquen si el juego logra que los jugadores estén concentrados o si hay momentos en los que se pierde el interés.</span>
+                <textarea id="psi-atencion"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué motiva a seguir jugando?</label>
+                <span class="help-text">Ayuda: Puede ser ganar, superar desafíos, avanzar de nivel, colaborar con otros, descubrir algo nuevo, competir, mejorar una strategy o desbloquear recompensas.</span>
+                <textarea id="psi-motiva"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿El juego genera frustración? ¿En qué momentos?</label>
+                <span class="help-text">Ayuda: Observen si la frustración aparece por reglas confusas, dificultad excesiva, espera larga entre turnos, azar, falta de control o sensación de injusticia.</span>
+                <textarea id="psi-frustracion"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Los jugadores sienten que sus decisiones importan?</label>
+                <span class="help-text">Ayuda: Analicen si las elecciones de los jugadores cambian el resultado del juego o si todo depende principalmente del azar.</span>
+                <textarea id="psi-decisiones"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿El juego favorece la cooperación, la competencia o ambas?</label>
+                <span class="help-text">Ayuda: Expliquen cómo eso afecta la relación entre los jugadores durante la partida.</span>
+                <textarea id="psi-cooperacion"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿El juego permite equivocarse y volver a intentar?</label>
+                <span class="help-text">Ayuda: Observen si el error forma parte del aprendizaje o si perder genera abandono, enojo o desmotivación.</span>
+                <textarea id="psi-error"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué tipo de jugador disfrutaría más este juego?</label>
+                <span class="help-text">Ayuda: Por ejemplo: alguien competitivo, creativo, estratégico, colaborativo, curioso, rápido, paciente, observador o que disfrute resolver problemas.</span>
+                <textarea id="psi-perfil"></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Continuación del análisis general</h3>
+
+            <div class="form-group">
+                <label>¿Qué parte resultó más confusa, lenta o difícil?</label>
+                <span class="help-text">Ayuda: Identifiquen algún aspecto que haya dificultado la experiencia de juego.</span>
+                <textarea id="cont-confusa"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué mejorarían del juego?</label>
+                <span class="help-text">Ayuda: Propongan cambios concretos. Por ejemplo: mejorar reglas, hacer más claro el tablero, agregar desafíos, cambiar la dificultad, mejorar el diseño visual, modificar la duración o mejorar la forma en que los jugadores interactúan.</span>
+                <textarea id="cont-mejorar"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué ideas podemos tomar para nuestro propio juego del proyecto TECHPLAY?</label>
+                <span class="help-text">Ayuda: Escriban ideas que podrían servir para el juego que diseñará el equipo.</span>
+                <textarea id="cont-ideas"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>¿Con qué eje podría relacionarse este juego?</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Salud"> Salud</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Educación"> Educación</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Inclusión"> Inclusión</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Sociedad"> Sociedad</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Medioambiente"> Medioambiente</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Tecnología"> Tecnología</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Convivencia"> Convivencia</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Comunicación"> Comunicación</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Emociones"> Emociones</label>
+                    <label class="checkbox-label"><input type="checkbox" name="eje" value="Trabajo en equipo"> Trabajo en equipo</label>
+                    <label class="checkbox-label"><input type="checkbox" id="eje-otro-cb" value="Otro"> Otro</label>
+                </div>
+                <div class="form-group hidden" id="eje-otro-container">
+                    <input type="text" id="eje-otro-texto" placeholder="Especifique qué otro eje...">
+                </div>
+                <label style="margin-top: 15px;">Expliquen por qué lo relacionan con ese eje.</label>
+                <textarea id="cont-eje-exp"></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Rúbrica de análisis del juego</h3>
+            <div class="table-container">
+                <table id="rubrica-general">
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Excelente</th>
+                            <th>Bueno</th>
+                            <th>Básico</th>
+                            <th>En proceso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="criterion-title">Objetivo del juego</span></td>
+                            <td class="rubric-cell cell-excelente" data-level="Excelente"><label><input type="radio" name="rub_obj" value="Excelente"> El objetivo del juego es claro, fácil de entender y motiva a seguir jugando.</label></td>
+                            <td class="rubric-cell cell-bueno" data-level="Bueno"><label><input type="radio" name="rub_obj" value="Bueno"> El objetivo se entiende, aunque podría estar mejor explicado o resultar más atractivo.</label></td>
+                            <td class="rubric-cell cell-basico" data-level="Básico"><label><input type="radio" name="rub_obj" value="Básico"> El objetivo se entiende parcialmente, pero genera algunas dudas.</label></td>
+                            <td class="rubric-cell cell-proceso" data-level="En proceso"><label><input type="radio" name="rub_obj" value="En proceso"> El objetivo no queda claro o los jugadores no comprenden qué deben lograr.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Reglas</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_reglas" value="Excelente"> Las reglas son claras, ordenadas y permiten comenzar a jugar sin demasiadas dudas.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_reglas" value="Bueno"> Las reglas se comprenden, aunque requieren algunas aclaraciones.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_reglas" value="Básico"> Las reglas son confusas en varios momentos o están incompletas.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_reglas" value="En proceso"> Las reglas no se comprenden o dificultan el desarrollo del juego.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Mecánicas de juego</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_mec" value="Excelente"> Las acciones que realizan los jugadores son interesantes, variadas y están bien relacionadas con el objetivo del juego.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_mec" value="Bueno"> Las mecánicas funcionan, aunque podrían ser más variadas o desafiantes.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_mec" value="Básico"> Las mecánicas son simples, repetitivas o poco conectadas con el objetivo.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_mec" value="En proceso"> Las mecánicas no funcionan bien o hacen que el juego pierda sentido.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Dinámica entre jugadores</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_din" value="Excelente"> El juego genera buena interacción: competencia, cooperación, estrategia, negociación, toma de decisiones o trabajo en equipo.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_din" value="Bueno"> Hay interacción entre los jugadores, aunque podría aprovecharse más.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_din" value="Básico"> La interacción es limitada o poco relevante para el desarrollo del juego.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_din" value="En proceso"> Casi no hay interacción entre los jugadores o esta genera confusión.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Diversión e interés</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_div" value="Excelente"> El juego resulta entretenido, mantiene la atención y genera ganas de seguir jugando.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_div" value="Bueno"> El juego es entretenido, aunque en algunos momentos puede volverse lento o repetitivo.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_div" value="Básico"> El juego entretiene parcialmente, pero pierde interés con facilidad.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_div" value="En proceso"> El juego no logra captar la atención o se vuelve aburrido rápidamente.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Dificultad y equilibrio</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_dif" value="Excelente"> El nivel de dificultad es adecuado: desafía sin volverse imposible, injusto ni demasiado fácil.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_dif" value="Bueno"> La dificultad es adecuada en general, aunque algunos momentos son muy fáciles o difíciles.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_dif" value="Básico"> La dificultad está poco equilibrada y puede afectar la experiencia de juego.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_dif" value="En proceso"> El juego es demasiado fácil, demasiado difícil o injusto para los jugadores.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Diseño visual y materiales</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_dis" value="Excelente"> El diseño visual, los colores, cartas, tablero, piezas, interfaz o materiales ayudan a comprender y disfrutar el juego.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_dis" value="Bueno"> El diseño visual funciona, aunque podría mejorar en claridad, estética u organización.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_dis" value="Básico"> El diseño visual es básico o poco claro, pero permite jugar.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_dis" value="En proceso"> El diseño visual o los materiales dificultan la comprensión del juego.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Claridad de la información</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_cla" value="Excelente"> La información del juego se presenta de forma clara: textos, símbolos, instrucciones, cartas, tablero o interfaz se comprenden fácilmente.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_cla" value="Bueno"> La información se entiende en general, aunque algunos elementos podrían estar mejor organizados.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_cla" value="Básico"> Algunos textos, símbolos o instrucciones generan dudas.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_cla" value="En proceso"> La información es confusa y dificulta jugar correctamente.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Originalidad</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_ori" value="Excelente"> El juego presenta ideas, reglas, mecánicas o recursos creativos que lo hacen diferente o interesante.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_ori" value="Bueno"> El juego tiene algunos elementos originales, aunque se parece bastante a otros juegos.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_ori" value="Básico"> El juego presenta pocas ideas nuevas o resulta muy predecible.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_ori" value="En proceso"> El juego no muestra originalidad o copia casi totalmente otro juego.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Relación con una temática o problema</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_tem" value="Excelente"> El juego logra relacionarse claramente con una temática, mensaje o problema.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_tem" value="Bueno"> La temática está presente, aunque podría integrarse mejor al juego.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_tem" value="Básico"> La temática aparece de forma débil o poco conectada con las reglas.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_tem" value="En proceso"> No se identifica una temática clara o la temática no aporta al juego.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Experiencia psicológica del jugador</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_exp" value="Excelente"> El juego mantiene la atención, genera motivación, permite tomar decisiones significativas y produce una experiencia emocional positiva o desafiante.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_exp" value="Bueno"> El juego genera una experiencia adecuada, aunque podría mejorar en motivación, atención o equilibrio emocional.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_exp" value="Básico"> La experiencia psicológica es irregular: por momentos motiva, pero también puede generar desinterés o frustración.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_exp" value="En proceso"> El juego no logra sostener la atención, genera frustración excesiva o no permite decisiones significativas.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Posibilidades de mejora</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_mej" value="Excelente"> El equipo logra identificar mejoras concretas que podrían hacer el juego más claro, dinámico o interesante.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_mej" value="Bueno"> Se reconocen algunas mejoras posibles.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_mej" value="Básico"> Las mejoras planteadas son generales o poco claras.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_mej" value="En proceso"> No se logra identificar cómo podría mejorar el juego.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Aporte al proyecto TECHPLAY</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="rub_apo" value="Excelente"> El juego ofrece varias ideas útiles que pueden servir para diseñar el juego propio del equipo.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="rub_apo" value="Bueno"> El juego ofrece algunas ideas que podrían adaptarse al proyecto.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="rub_apo" value="Básico"> El juego aporta pocas ideas o estas no están claramente conectadas con el proyecto.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="rub_apo" value="En proceso"> No se identifican ideas útiles para el desarrollo del propio juego.</label></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Mini rúbrica de análisis psicológico</h3>
+            <div class="table-container">
+                <table id="rubrica-psico">
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Excelente</th>
+                            <th>Bueno</th>
+                            <th>Básico</th>
+                            <th>En proceso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="criterion-title">Atención</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_ate" value="Excelente"> El juego mantiene a los jugadores concentrados durante casi toda la partida.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_ate" value="Bueno"> Mantiene la atención en general, aunque tiene algunos momentos lentos.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_ate" value="Básico"> La atención se pierde en varias partes del juego.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_ate" value="En proceso"> El juego no logra sostener el interés de los jugadores.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Motivación</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_mot" value="Excelente"> El juego genera ganas claras de seguir jugando, mejorar o volver a intentarlo.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_mot" value="Bueno"> El juego motiva en general, aunque podría generar mayor interés.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_mot" value="Básico"> La motivación aparece solo en algunos momentos.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_mot" value="En proceso"> El juego no genera ganas de continuar.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Manejo de la frustración</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_fru" value="Excelente"> El juego presenta desafíos adecuados y permite perder o equivocarse sin desmotivar demasiado.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_fru" value="Bueno"> Puede generar algo de frustración, pero no impide seguir jugando.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_fru" value="Básico"> La frustración afecta bastante la experiencia.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_fru" value="En proceso"> La frustración domina la experiencia y puede hacer que los jugadores abandonen.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Toma de decisiones</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_dec" value="Excelente"> Las decisiones de los jugadores tienen impacto claro en el desarrollo del juego.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_dec" value="Bueno"> Algunas decisiones importan, aunque también depende bastante del azar.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_dec" value="Básico"> Las decisiones tienen poco impacto.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_dec" value="En proceso"> Los jugadores casi no toman decisiones importantes.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Interacción emocional entre jugadores</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_int" value="Excelente"> El juego favorece una interacción positiva, respetuosa y entretenida entre los participantes.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_int" value="Bueno"> La interacción es adecuada, aunque podría aprovecharse más.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_int" value="Básico"> La interacción puede volverse limitada, confusa o poco equilibrada.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_int" value="En proceso"> La interacción genera conflictos, exclusión o desinterés.</label></td>
+                        </tr>
+                        <tr>
+                            <td><span class="criterion-title">Sensación de logro</span></td>
+                            <td class="rubric-cell cell-excelente"><label><input type="radio" name="psi_log" value="Excelente"> El juego genera satisfacción al avanzar, resolver desafíos, ganar o mejorar.</label></td>
+                            <td class="rubric-cell cell-bueno"><label><input type="radio" name="psi_log" value="Bueno"> Hay cierta sensación de logro, aunque podría estar mejor construida.</label></td>
+                            <td class="rubric-cell cell-basico"><label><input type="radio" name="psi_log" value="Básico"> La sensación de logro es débil o poco clara.</label></td>
+                            <td class="rubric-cell cell-proceso"><label><input type="radio" name="psi_log" value="En proceso"> El juego no genera sensación de avance, logro o mejora.</label></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <h4 style="margin-bottom: 10px; color: var(--primary);">Escala de valoración</h4>
+                <p><strong>Excelente:</strong> funciona muy bien y puede servir como ejemplo para nuestro propio juego.</p>
+                <p><strong>Bueno:</strong> funciona correctamente, aunque podría mejorar.</p>
+                <p><strong>Básico:</strong> cumple parcialmente, pero necesita ajustes importantes.</p>
+                <p><strong>En proceso:</strong> presenta dificultades claras o no logra cumplir el criterio.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Valoración final del juego</h3>
+            
+            <label>Puntaje general del juego:</label>
+            <div class="valuation-grid">
+                <label class="radio-card val-excelente"><input type="radio" name="puntaje_final" value="Excelente"> Excelente</label>
+                <label class="radio-card val-bueno"><input type="radio" name="puntaje_final" value="Bueno"> Bueno</label>
+                <label class="radio-card val-basico"><input type="radio" name="puntaje_final" value="Básico"> Básico</label>
+                <label class="radio-card val-proceso"><input type="radio" name="puntaje_final" value="En proceso"> En proceso</label>
+            </div>
+
+            <div class="form-group">
+                <label>Justificación de la valoración:</label>
+                <textarea id="val-justificacion"></textarea>
+            </div>
+
+            <label>¿Recomendarían este juego a otro equipo?</label>
+            <div class="recommend-grid">
+                <label class="radio-card rec-card"><input type="radio" name="recomendar" value="Sí"> Sí</label>
+                <label class="radio-card rec-card"><input type="radio" name="recomendar" value="No"> No</label>
+                <label class="radio-card rec-card"><input type="radio" name="recomendar" value="Tal vez"> Tal vez</label>
+            </div>
+
+            <div class="form-group">
+                <label>¿Por qué?</label>
+                <textarea id="val-porque"></textarea>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Síntesis final para el proyecto TECHPLAY</h3>
+            
+            <div class="form-group">
+                <label>Lo mejor del juego fue:</label>
+                <textarea id="sin-mejor"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Lo que menos funcionó fue:</label>
+                <textarea id="sin-peor"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Una idea que podríamos adaptar a nuestro propio juego es:</label>
+                <textarea id="sin-idea"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Una mejora que aplicaríamos si este juego fuera nuestro sería:</label>
+                <textarea id="sin-mejora"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Algo que aprendimos sobre el diseño de juegos fue:</label>
+                <textarea id="sin-apr-diseno"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Algo que aprendimos sobre la experiencia de los jugadores fue:</label>
+                <textarea id="sin-apr-jugadores"></textarea>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn-clear" onclick="limpiarFormulario()">Limpiar formulario</button>
+            <button type="button" class="btn-print" onclick="imprimirPDF()">Imprimir / Guardar como PDF</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Mostrar/ocultar campos "Otro"
+    function setupOtroToggle(checkboxId, containerId) {
+        const checkbox = document.getElementById(checkboxId);
+        const container = document.getElementById(containerId);
+        if(checkbox && container) {
+            checkbox.addEventListener('change', function() {
+                if(this.checked) {
+                    container.classList.remove('hidden');
+                } else {
+                    container.classList.add('hidden');
+                    container.querySelector('input').value = '';
+                }
+            });
+        }
+    }
+
+    setupOtroToggle('tipo-otro-cb', 'tipo-otro-container');
+    setupOtroToggle('mecanica-otro-cb', 'mecanica-otro-container');
+    setupOtroToggle('interaccion-otro-cb', 'interaccion-otro-container');
+    setupOtroToggle('eje-otro-cb', 'eje-otro-container');
+
+    // Manejo visual de tablas de rúbrica
+    const rubricCells = document.querySelectorAll('.rubric-cell');
+    rubricCells.forEach(cell => {
+        cell.addEventListener('click', function(e) {
+            if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                const radio = this.querySelector('input[type="radio"]');
+                if(radio) radio.checked = true;
+                actualizarFilaRubrica(this.closest('tr'));
+            }
+        });
+        
+        const radio = cell.querySelector('input[type="radio"]');
+        if(radio) {
+            radio.addEventListener('change', function() {
+                actualizarFilaRubrica(cell.closest('tr'));
+            });
+        }
+    });
+
+    function actualizarFilaRubrica(tr) {
+        const cells = tr.querySelectorAll('.rubric-cell');
+        cells.forEach(c => c.classList.remove('active'));
+        const checkedRadio = tr.querySelector('input[type="radio"]:checked');
+        if(checkedRadio) {
+            checkedRadio.closest('.rubric-cell').classList.add('active');
+        }
+    }
+
+    // Manejo visual de radio buttons de valoración
+    const radioCards = document.querySelectorAll('.radio-card input[type="radio"]');
+    radioCards.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const container = this.closest('.valuation-grid') || this.closest('.recommend-grid');
+            const cards = container.querySelectorAll('.radio-card');
+            cards.forEach(card => card.classList.remove('active'));
+            this.closest('.radio-card').classList.add('active');
+        });
+    });
+
+    // Limpiar formulario
+    function limpiarFormulario() {
+        if(confirm('¿Seguro que deseas limpiar todo el formulario? Se perderán las respuestas.')) {
+            document.getElementById('techplay-form').reset();
+            document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.hidden').forEach(el => el.classList.add('hidden'));
+            ['tipo-otro-container', 'mecanica-otro-container', 'interaccion-otro-container', 'eje-otro-container'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // Generar nombre de archivo dinámico al imprimir/guardar PDF
+    function imprimirPDF() {
+        try {
+            const equipoInput = document.getElementById('equipo').value.trim();
+            const equipo = equipoInput.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ]/g, '_') || 'Sin_Equipo';
+            
+            const grupoSelect = document.getElementById('grupo').value;
+            const grupo = grupoSelect || 'Sin_Grupo';
+            
+            const originalTitle = document.title;
+            document.title = `${grupo}_${equipo}`;
+            
+            setTimeout(function() {
+                window.print();
+                
+                setTimeout(function() {
+                    document.title = originalTitle;
+                }, 1000);
+            }, 150);
+        } catch(e) {
+            console.error("Error al imprimir: ", e);
+            alert("Hubo un error al intentar abrir el menú de impresión.");
+        }
+    }
+</script>
+
+</body>
+</html>
